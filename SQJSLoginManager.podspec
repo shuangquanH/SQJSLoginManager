@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
     s.requires_arc = true
     s.ios.dependency 'SQJSRequestTool'
     s.ios.dependency 'YYModel'
-    s.ios.dependency 'JShare'
+    s.ios.dependency 'JShare', '~> 1.5.0'  
 
     s.source_files = 'SQJSLoginManager/*.{h,m}'
 end
