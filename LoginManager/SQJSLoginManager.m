@@ -10,7 +10,7 @@
 #import "SQJSLoginDefine.h"
 #import "SQJSDealLoginParam.h"
 #import "SQRequest.h"
-#import "JSHAREService.h"
+//#import "JSHAREService.h"
 
 @implementation SQJSLoginManager
 
@@ -47,27 +47,27 @@
     }];
 }
 
-+ (void)logMediaType:(NSInteger)type Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail {
-    if ([self judgeType:type]) {
-        NSLog(@"请输入正确的type");
-        return;
-    }
-    [JSHAREService getSocialUserInfo:type handler:^(JSHARESocialUserInfo *userInfo, NSError *error) {
-        if (error) {
-            [self failBlock:fail witheResultErr:error.domain];
-        } else {
-            NSString    *openId = [userInfo.userOriginalResponse valueForKey:@"openId"];
-            NSString    *sex = [NSString stringWithFormat:@"%ld", userInfo.gender];
-            NSString    *source = [self loginSourceWithType:type];
-            NSDictionary  *param = @{@"openId":openId, @"source":source, @"nickName":userInfo.name, @"avator":userInfo.iconurl, @"sex":sex};
-            [SQRequest postRequestWithApi:KAPI_MEDIALOGINADDRESS param:param result:^(id resultData) {
-                [self successBlock:success withResult:resultData];
-            } failure:^(NSString *errcode, NSString *errmsg) {
-                [self failBlock:fail witheResultErr:error.domain];
-            }];
-        }
-    }];
-}
+//+ (void)logMediaType:(NSInteger)type Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail {
+//    if ([self judgeType:type]) {
+//        NSLog(@"请输入正确的type");
+//        return;
+//    }
+//    [JSHAREService getSocialUserInfo:type handler:^(JSHARESocialUserInfo *userInfo, NSError *error) {
+//        if (error) {
+//            [self failBlock:fail witheResultErr:error.domain];
+//        } else {
+//            NSString    *openId = [userInfo.userOriginalResponse valueForKey:@"openId"];
+//            NSString    *sex = [NSString stringWithFormat:@"%ld", userInfo.gender];
+//            NSString    *source = [self loginSourceWithType:type];
+//            NSDictionary  *param = @{@"openId":openId, @"source":source, @"nickName":userInfo.name, @"avator":userInfo.iconurl, @"sex":sex};
+//            [SQRequest postRequestWithApi:KAPI_MEDIALOGINADDRESS param:param result:^(id resultData) {
+//                [self successBlock:success withResult:resultData];
+//            } failure:^(NSString *errcode, NSString *errmsg) {
+//                [self failBlock:fail witheResultErr:error.domain];
+//            }];
+//        }
+//    }];
+//}
 
 
 
