@@ -11,6 +11,12 @@
 
 @interface SQJSLoginManager : NSObject
 
+//获取用户id
++ (NSString *)getUserId;
+
+//存储用户id
++ (void)saveUserId:(NSString *)userid;
+
 //自动登录，设备第一次进入app调用
 + (void)autoLogiWithSuccess:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail;
 
@@ -23,7 +29,5 @@
 //绑定手机号，需要传《手机号》和《验证码》两个参数
 + (void)bindingWithPhone:(NSString *)phone verify:(NSString *)verify Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail;
 
-//第三方登录，需要传《type》一个参数( 微信传1,  qq传4, 微博传6)
-+ (void)logMediaType:(NSInteger)type Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail;
 
 @end

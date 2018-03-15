@@ -10,9 +10,20 @@
 #import "SQJSLoginDefine.h"
 #import "SQJSDealLoginParam.h"
 #import "SQRequest.h"
-#import "JSHAREService.h"
 
 @implementation SQJSLoginManager
+
+
+//获取用户id
++ (NSString *)getUserId {
+    return [[NSUserDefaults standardUserDefaults] valueForKey:K_USER_ID];
+}
+
+//存储用户id
++ (void)saveUserId:(NSString *)userid {
+    [[NSUserDefaults standardUserDefaults] setValue:userid forKey:K_USER_ID];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 + (void)autoLogiWithSuccess:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail {
     NSDictionary    *param =    [SQJSDealLoginParam requestParam];
@@ -47,31 +58,6 @@
     }];
 }
 
-+ (void)logMediaType:(NSInteger)type Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail {
-    if ([self judgeType:type]) {
-        NSLog(@"请输入正确的type");
-        return;
-    }
-    [JSHAREService getSocialUserInfo:type handler:^(JSHARESocialUserInfo *userInfo, NSError *error) {
-        if (error) {
-            [self failBlock:fail witheResultErr:error.domain];
-        } else {
-            NSString    *openId = [userInfo.userOriginalResponse valueForKey:@"openId"];
-            NSString    *sex = [NSString stringWithFormat:@"%ld", userInfo.gender];
-            NSString    *source = [self loginSourceWithType:type];
-            NSDictionary  *param = @{@"openId":openId, @"source":source, @"nickName":userInfo.name, @"avator":userInfo.iconurl, @"sex":sex};
-            [SQRequest postRequestWithApi:KAPI_MEDIALOGINADDRESS param:param result:^(id resultData) {
-                [self successBlock:success withResult:resultData];
-            } failure:^(NSString *errcode, NSString *errmsg) {
-                [self failBlock:fail witheResultErr:error.domain];
-            }];
-        }
-    }];
-}
-
-
-
-
 + (void)successBlock:(void(^)(SQJSUserModel  *user))success withResult:(id)resultData {
     if (success) {
         success([SQJSDealLoginParam loginUserWithData:resultData]);
@@ -84,20 +70,4 @@
     }
 }
 
-+ (NSString *)loginSourceWithType:(NSInteger)type {
-    if (type==1) {
-        return @"wechat";
-    } else if (type==4) {
-        return @"QQ";
-    } else {
-        return @"weibo";
-    }
-}
-+ (BOOL)judgeType:(NSInteger)type{
-    if (type!=1&&type!=4&&type!=6) {
-        return YES;
-    } else {
-        return NO;
-    }
-}
 @end
