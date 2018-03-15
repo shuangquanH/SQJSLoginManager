@@ -24,6 +24,6 @@
 + (void)bindingWithPhone:(NSString *)phone verify:(NSString *)verify Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail;
 
 //第三方登录，需要传《type》一个参数( 微信传1,  qq传4, 微博传6)
-//+ (void)logMediaType:(NSInteger)type Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail;
++ (void)logMediaType:(NSInteger)type Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail;
 
 @end
