@@ -6,9 +6,15 @@
 //  Copyright © 2018年 Fly. All rights reserved.
 //
 
+//用户登录工具类头文件
+
 #ifndef SQJSLoginDefine_h
 #define SQJSLoginDefine_h
 
+/** 用户登录工具类 */
+#import "SQJSLoginManager.h"
+/** 登录参数处理类 */
+#import "SQJSDealLoginParam.h"
 
 /** 自动登录接口 */
 #define KAPI_LOGINADDRESS @"/api/ucs/login/auto"

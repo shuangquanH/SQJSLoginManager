@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
     s.name         = "SQJSLoginManager"
-    s.version      = "0.0.7"
+    s.version      = "0.0.8"
     s.ios.deployment_target = '8.0'
     s.summary      = "jiansi login manager"
     s.homepage     = "https://github.com/shuangquanH/SQJSLoginManager.git"
@@ -12,6 +12,6 @@ Pod::Spec.new do |s|
     s.requires_arc = true
     s.ios.dependency 'SQJSRequestTool'
     s.ios.dependency 'YYModel'
-    s.source_files = 'LoginManager/*.{h,m}'
+    s.source_files = 'SQJSLoginManager/*.{h,m}'
 
 end
