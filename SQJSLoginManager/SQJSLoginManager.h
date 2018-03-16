@@ -26,8 +26,8 @@
 //手机号验证码登录，需要传《手机号》和《验证码》两个参数
 + (void)logiWithPhone:(NSString *)phone verify:(NSString *)verify Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail;
 
-//绑定手机号，需要传《手机号》和《验证码》两个参数
-+ (void)bindingWithPhone:(NSString *)phone verify:(NSString *)verify Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail;
+//绑定手机号，需要传《手机号》和《验证码》和《openid》三个参数
++ (void)bindingWithPhone:(NSString *)phone verify:(NSString *)verify openId:(NSString *)openId Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail;
 
 
 @end
