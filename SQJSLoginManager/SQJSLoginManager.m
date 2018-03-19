@@ -49,8 +49,8 @@
         [self failBlock:fail witheResultErr:errmsg];
     }];
 }
-+ (void)bindingWithPhone:(NSString *)phone verify:(NSString *)verify openId:(NSString *)openId Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail {
-    NSDictionary    *param = @{@"phone":phone, @"verify":verify, @"openId":openId};
++ (void)bindingWithPhone:(NSString *)phone verify:(NSString *)verify openId:(NSString *)openId source:(NSString *)source Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail {
+    NSDictionary    *param = @{@"phone":phone, @"verify":verify, @"openId":openId, @"source":source};
     [SQRequest postRequestWithApi:KAPI_BINDINGPhoneADDRESS param:param result:^(id resultData) {
         [self successBlock:success withResult:resultData];
     } failure:^(NSString *errcode, NSString *errmsg) {

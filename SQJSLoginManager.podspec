@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
     s.name         = "SQJSLoginManager"
-    s.version      = "0.0.9"
+    s.version      = "0.0.10"
     s.ios.deployment_target = '8.0'
     s.summary      = "jiansi login manager"
     s.homepage     = "https://github.com/shuangquanH/SQJSLoginManager.git"
