@@ -30,4 +30,10 @@
 + (void)bindingWithPhone:(NSString *)phone verify:(NSString *)verify openId:(NSString *)openId source:(NSString *)source Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail;
 
 
+//第三方登录，需要传《type》一个参数( 微信传1,  qq传4, 微博传6)
+//登录成功返回usermodel
+//登录失败返回errcode，如果errcode返回nil，证明调用第三方出错，如果返回2000则为未绑定手机号,此时ermag为openid
++ (void)logMediaType:(NSInteger)type Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *ercode, NSString *ermag))fail;
+
+
 @end
