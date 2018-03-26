@@ -131,10 +131,10 @@
 + (NSDictionary *)weiboLoginSuccessWithDic:(JSHARESocialUserInfo *)userInfo {
     NSString *openId = userInfo.openid;
     NSString *source = @"WEIBO";
-    NSString *nickName = userInfo.userOriginalResponse[@"nickname"];
-    NSString *avator = userInfo.userOriginalResponse[@"figureurl_qq_2"];
+    NSString *nickName = userInfo.name;
+    NSString *avator = userInfo.iconurl;
     NSString *sex = (userInfo.gender==1)?@"1":@"0";
-    NSString *city = userInfo.userOriginalResponse[@"city"];
+    NSString *city = userInfo.userOriginalResponse[@"location"];
     return @{@"openId":openId,
              @"source":source,
              @"nickName":nickName,
