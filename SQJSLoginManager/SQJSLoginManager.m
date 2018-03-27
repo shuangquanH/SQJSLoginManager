@@ -129,7 +129,7 @@
 
 //微博登录成功后返回的数据
 + (NSDictionary *)weiboLoginSuccessWithDic:(JSHARESocialUserInfo *)userInfo {
-    NSString *openId = userInfo.openid;
+    NSString *openId = userInfo.uid;
     NSString *source = @"WEIBO";
     NSString *nickName = userInfo.name;
     NSString *avator = userInfo.iconurl;
