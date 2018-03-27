@@ -70,7 +70,12 @@
             [SQRequest postRequestWithApi:KAPI_MEDIALOGINADDRESS param:param result:^(id resultData) {
                 [self successBlock:success withResult:resultData];
             } failure:^(NSString *errcode, NSString *errmsg) {
-                NSString *passString = ([errcode isEqualToString:@"2000"])?userInfo.openid:errmsg;
+                NSString    *passString;
+                if (type==6) {
+                    passString = ([errcode isEqualToString:@"2000"])?userInfo.uid:errmsg;
+                } else {
+                    passString = ([errcode isEqualToString:@"2000"])?userInfo.openid:errmsg;
+                }
                 [self failBlock:fail withCode:errcode msg:passString];
             }];
         }
