@@ -157,16 +157,16 @@
         [mudic setValue:model.phoneNumber forKey:@"phone"];
     }
     if (![self isBlankString:model.verifyCode]) {
-        [mudic setValue:model.phoneNumber forKey:@"verify"];
+        [mudic setValue:model.verifyCode forKey:@"verify"];
     }
     if (![self isBlankString:model.inviteCode]) {
-        [mudic setValue:model.phoneNumber forKey:@"inviteCode"];
+        [mudic setValue:model.inviteCode forKey:@"inviteCode"];
     }
     if (![self isBlankString:model.userOpenid]) {
-        [mudic setValue:model.phoneNumber forKey:@"openId"];
+        [mudic setValue:model.userOpenid forKey:@"openId"];
     }
     if (![self isBlankString:model.userSource]) {
-        [mudic setValue:model.phoneNumber forKey:@"source"];
+        [mudic setValue:model.userSource forKey:@"source"];
     }
     return mudic;
 }
