@@ -12,6 +12,9 @@
 #import "SQRequest.h"
 #import "JSHAREService.h"
 
+@implementation SQJSLoginModel
+@end
+
 @implementation SQJSLoginManager
 
 
@@ -41,23 +44,27 @@
         [self failBlock:fail witheResultErr:errmsg];
     }];
 }
-
-+ (void)logiWithPhone:(NSString *)phone verify:(NSString *)verify Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail {
-    NSDictionary    *param = @{@"phone":phone, @"verify":verify};
+/** 手机号登录，需要传入《手机号》，《验证码》，可选填入《邀请码》 */
++ (void)loginWithLoginModel:(SQJSLoginModel *)model Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail {
+    NSDictionary    *param = [self paramFromeModel:model];
     [SQRequest postRequestWithApi:KAPI_LOGINPhoneADDRESS param:param result:^(id resultData) {
         [self successBlock:success withResult:resultData];
     } failure:^(NSString *errcode, NSString *errmsg) {
         [self failBlock:fail witheResultErr:errmsg];
     }];
+    
 }
-+ (void)bindingWithPhone:(NSString *)phone verify:(NSString *)verify openId:(NSString *)openId source:(NSString *)source Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail {
-    NSDictionary    *param = @{@"phone":phone, @"verify":verify, @"openId":openId, @"source":source};
+
+/** 绑定手机号，需要传入《手机号》，《验证码》，《openid》，《source》 */
++ (void)bindingWhitLoginModel:(SQJSLoginModel   *)model Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *errmag))fail {
+    NSDictionary    *param = [self paramFromeModel:model];
     [SQRequest postRequestWithApi:KAPI_BINDINGPhoneADDRESS param:param result:^(id resultData) {
         [self successBlock:success withResult:resultData];
     } failure:^(NSString *errcode, NSString *errmsg) {
         [self failBlock:fail witheResultErr:errmsg];
     }];
 }
+
 
 + (void)logMediaType:(NSInteger)type Success:(void(^)(SQJSUserModel  *user))success failure:(void(^)(NSString *ercode, NSString *ermag))fail {
     if ([self judgeType:type]) {  return; }
@@ -70,12 +77,7 @@
             [SQRequest postRequestWithApi:KAPI_MEDIALOGINADDRESS param:param result:^(id resultData) {
                 [self successBlock:success withResult:resultData];
             } failure:^(NSString *errcode, NSString *errmsg) {
-                NSString    *passString;
-                if (type==6) {
-                    passString = ([errcode isEqualToString:@"2000"])?userInfo.uid:errmsg;
-                } else {
-                    passString = ([errcode isEqualToString:@"2000"])?userInfo.openid:errmsg;
-                }
+                NSString *passString = ([errcode isEqualToString:@"2000"])?userInfo.openid:errmsg;
                 [self failBlock:fail withCode:errcode msg:passString];
             }];
         }
@@ -148,7 +150,26 @@
              @"city":city
              };
 }
-
+/** 拼接生成的参数 */
++ (NSDictionary *)paramFromeModel:(SQJSLoginModel   *)model {
+    NSMutableDictionary *mudic = [NSMutableDictionary   dictionary];
+    if (![self isBlankString:model.phoneNumber]) {
+        [mudic setValue:model.phoneNumber forKey:@"phone"];
+    }
+    if (![self isBlankString:model.verifyCode]) {
+        [mudic setValue:model.phoneNumber forKey:@"verify"];
+    }
+    if (![self isBlankString:model.inviteCode]) {
+        [mudic setValue:model.phoneNumber forKey:@"inviteCode"];
+    }
+    if (![self isBlankString:model.userOpenid]) {
+        [mudic setValue:model.phoneNumber forKey:@"openId"];
+    }
+    if (![self isBlankString:model.userSource]) {
+        [mudic setValue:model.phoneNumber forKey:@"source"];
+    }
+    return mudic;
+}
 
 + (BOOL)judgeType:(NSInteger)type{
     if (type!=1&&type!=4&&type!=6) {
@@ -176,6 +197,24 @@
     if (fail) {
         fail(errcode, errmsg);
     }
+}
+/** 判断是否为空 */
++ (BOOL)isBlankString:(NSString *)aStr {
+    if (!aStr) {
+        return YES;
+    }
+    if ([aStr isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if (!aStr.length) {
+        return YES;
+    }
+    NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *trimmedStr = [aStr stringByTrimmingCharactersInSet:set];
+    if (!trimmedStr.length) {
+        return YES;
+    }
+    return NO;
 }
 
 @end
