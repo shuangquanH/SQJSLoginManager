@@ -38,4 +38,6 @@
 @property (nonatomic, copy) NSString        *recommendation;
 /** 推荐用户id */
 @property (nonatomic, copy) NSString        *referrerId;
+/// type 0-游客 1-登录用户
+@property (nonatomic, copy) NSString        *type;
 @end
